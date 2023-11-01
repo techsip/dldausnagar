@@ -1,0 +1,12 @@
+.header {
+  margin: 0;
+  padding: 0px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logout {
+  cursor: pointer;
+}
