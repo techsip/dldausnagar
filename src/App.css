@@ -52,17 +52,20 @@ background-color: #97b245;
 .content-container {
   flex: 1;
   position: relative;
+  height: 100%;
+  overflow: auto;
 }
 .dashboard-bg-img {
   width: 100%;
   height: calc(100% - 200px);
-  position: absolute;
-  background: url("http://localhost:3000/assets/images/logo.png");
+  position: fixed;
+  background: url("https://dldausnagar.com/assets/images/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.1;
   top: 180px;
+  left: 100px;
   
 }
 .ant-table, .ant-table-placeholder {
@@ -71,4 +74,7 @@ background-color: #97b245;
 .ant-btn-primary {
   /* background: #1b6614 !important; */
 
+}
+.ant-table-content {
+  overflow: auto;
 }

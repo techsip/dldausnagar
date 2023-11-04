@@ -41,7 +41,11 @@ const SideMenu = ({ setSelectedtool, isAdmin }: Props) => {
     getItem("Users", "users", <UserOutlined />),
   ];
   if (isAdmin) {
-    items = [...items, getItem("Admins", "admins", <ControlOutlined />)];
+    items = [
+      ...items,
+      getItem("MIS Report", "mis-report", <ControlOutlined />),
+      getItem("Admins", "admins", <ControlOutlined />),
+    ];
   }
   const navigate = useNavigate();
   const location = useLocation();

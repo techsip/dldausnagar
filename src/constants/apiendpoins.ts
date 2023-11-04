@@ -9,6 +9,8 @@ export default {
   flatsRandomAssignment: "/flats/assign-flats-random.php",
   assignFlatToUser: "/flats/assign-flat-to-user.php",
   uploadFlats: "/flats/upload-csv.php",
+  removeAllotment: "/flats/cancel-allotment.php",
+  searchData: "/flats/search-data.php",
 
   fetchUsers: "/users/get-users.php",
   addUser: "/users/add-user.php",

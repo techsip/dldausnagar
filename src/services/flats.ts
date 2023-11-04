@@ -17,10 +17,18 @@ export const deleteFlat = (id: any) => {
   return apiService(`${apiendpoins.deleteFlat}?id=${id}`, "DELETE");
 };
 
+export const removeAllotmentFlat = (id: any) => {
+  return apiService(`${apiendpoins.removeAllotment}?flat_id=${id}`, "POST");
+};
+
 export const randomFlatAssignment = () => {
   return apiService(apiendpoins.flatsRandomAssignment, "POST");
 };
 
 export const assignFlatToUser = (paylod: any) => {
   return apiService(apiendpoins.assignFlatToUser, "PUT", paylod);
+};
+
+export const searchData = (data: any) => {
+  return apiService(`${apiendpoins.searchData}?${data}`, "GET");
 };

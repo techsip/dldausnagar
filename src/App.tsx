@@ -15,6 +15,7 @@ import UserList from "./pages/Users/UserList";
 import AddUser from "./pages/Users/AddUser";
 import AdminList from "./pages/Admin/AdminList";
 import AddAdmin from "./pages/Admin/AddAdmin";
+import MisReport from "./pages/MisReport";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
@@ -66,6 +67,9 @@ function App() {
                   />
                   <Route path="/users" element={<UserList />} />
                   {isAdmin && <Route path="/admins" element={<AdminList />} />}
+                  {isAdmin && (
+                    <Route path="/mis-report" element={<MisReport />} />
+                  )}
                 </>
               )}
               <Route

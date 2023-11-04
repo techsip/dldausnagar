@@ -16,6 +16,7 @@ import {
   deleteFlat,
   getFlats,
   randomFlatAssignment,
+  removeAllotmentFlat,
 } from "../../services/flats";
 import AddFlat from "./AddFlat";
 import {
@@ -36,6 +37,7 @@ const FlatList = ({ isAdmin }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFlat, setSelectedFlat] = useState();
   const [deleteOpen, setDeleteOpen] = useState();
+  const [cancelAllotmentOpen, setCancelAllotmentOpen] = useState();
   const [confirmDeleteLoading, setConfirmDeleteLoading] = useState(false);
   const [assignModal, setAssignModal] = useState(false);
   const [allUsers, setAllUsers] = useState<any>([]);
@@ -47,6 +49,22 @@ const FlatList = ({ isAdmin }: Props) => {
       inputValue?.toLowerCase().startsWith(record?.phone?.toLowerCase());
     if (a) console.log("aaaaa", inputValue, record, a);
     return a;
+  };
+
+  const cancelAllotment = async (flat_id: any) => {
+    console.log("flat", flat_id);
+    try {
+      const res = await removeAllotmentFlat(flat_id);
+      if (res?.status) {
+        message.success(res?.message);
+        fetchFlats();
+      } else {
+        message.error(res?.message);
+      }
+    } catch (e) {
+      message.error("something went wrong");
+    }
+    setCancelAllotmentOpen(undefined);
   };
 
   const columns = [
@@ -77,7 +95,7 @@ const FlatList = ({ isAdmin }: Props) => {
             <div>Gender: {flat.gender}</div>
           </Tag>
         ) : (
-          <Tag color="magenta">Empty Flat</Tag>
+          <Tag color="magenta">Vacant Flat</Tag>
         ),
     },
     {
@@ -85,7 +103,7 @@ const FlatList = ({ isAdmin }: Props) => {
       render: (flat: any) =>
         !flat?.user_id ? (
           <>
-            <Button
+            {/* <Button
               type="primary"
               icon={<EditOutlined />}
               onClick={() => showModal(flat)}
@@ -106,44 +124,61 @@ const FlatList = ({ isAdmin }: Props) => {
                 icon={<DeleteOutlined />}
                 onClick={() => setDeleteOpen(flat.flat_id)}
               />
-            </Popconfirm>
+            </Popconfirm> */}
           </>
-        ) : // <Form
-        //   onFinish={(values: any) =>
-        //     onUserSubmit(values?.user_id, flat?.flat_id)
-        //   }
-        //   style={{ width: 300 }}
-        // >
-        //   <Form.Item
-        //     name="user_id"
-        //     rules={[{ required: true }]}
-        //     style={{ marginBottom: 10 }}
-        //   >
-        //     <Select
-        //       placeholder="Select User"
-        //       allowClear
-        //       showSearch
-        //       filterOption={onFilter}
-        //     >
-        //       {allUsers?.map((user: any) => (
-        //         <Select.Option
-        //           value={user.user_id}
-        //           username={user.name}
-        //           aadhar={user.aadhar}
-        //           phone={user.phone}
-        //         >
-        //           {user?.name} (Aadhar: {user?.aadhar})
-        //         </Select.Option>
-        //       ))}
-        //     </Select>
-        //   </Form.Item>
-        //   <Form.Item style={{ marginBottom: 10 }}>
-        //     <Button type="primary" htmlType="submit">
-        //       Submit
-        //     </Button>
-        //   </Form.Item>
-        // </Form>
-        null,
+        ) : (
+          // <Form
+          //   onFinish={(values: any) =>
+          //     onUserSubmit(values?.user_id, flat?.flat_id)
+          //   }
+          //   style={{ width: 300 }}
+          // >
+          //   <Form.Item
+          //     name="user_id"
+          //     rules={[{ required: true }]}
+          //     style={{ marginBottom: 10 }}
+          //   >
+          //     <Select
+          //       placeholder="Select User"
+          //       allowClear
+          //       showSearch
+          //       filterOption={onFilter}
+          //     >
+          //       {allUsers?.map((user: any) => (
+          //         <Select.Option
+          //           value={user.user_id}
+          //           username={user.name}
+          //           aadhar={user.aadhar}
+          //           phone={user.phone}
+          //         >
+          //           {user?.name} (Aadhar: {user?.aadhar})
+          //         </Select.Option>
+          //       ))}
+          //     </Select>
+          //   </Form.Item>
+          //   <Form.Item style={{ marginBottom: 10 }}>
+          //     <Button type="primary" htmlType="submit">
+          //       Submit
+          //     </Button>
+          //   </Form.Item>
+          // </Form>
+          <Popconfirm
+            title={`Cancel the allotment of flat ${flat?.flat_no}`}
+            description={`Are you sure to delete the flat ${flat.flat_no} on floor ${flat.floor} in block ${flat.block}`}
+            open={cancelAllotmentOpen === flat.flat_id}
+            onConfirm={() => cancelAllotment(flat?.flat_id)}
+            okButtonProps={{ loading: confirmDeleteLoading }}
+            onCancel={() => setCancelAllotmentOpen(undefined)}
+          >
+            <Button
+              style={{ marginLeft: 10 }}
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => setCancelAllotmentOpen(flat?.flat_id)}
+            />
+          </Popconfirm>
+        ),
     },
   ];
 
@@ -247,6 +282,7 @@ const FlatList = ({ isAdmin }: Props) => {
   };
 
   const sortByUser = () => {
+    return flats;
     const assignedFlats = flats.filter((flat: any) => flat?.user_id);
     const unAssignedFlats = flats.filter((flat: any) => !flat?.user_id);
     return [...assignedFlats, ...unAssignedFlats];

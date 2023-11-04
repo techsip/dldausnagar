@@ -1,0 +1,18 @@
+.mis-report-search-container {
+    padding: 20px;
+}
+.mis-report-search-container .ant-form-item {
+    margin-bottom: 10px;
+}
+.mis-report-search-container .ant-form-item-label {
+    padding-bottom: 0;
+}
+.mis-report-search-container .ant-form-item-label {
+    width: calc(100% - 10px);
+    max-width: calc(100% - 10px);
+    white-space: nowrap;
+}
+.mis-report-search-container .ant-form-item-control {
+    width: calc(100% - 10px);
+    max-width: calc(100% - 10px);   
+}

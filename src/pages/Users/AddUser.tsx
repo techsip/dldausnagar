@@ -21,7 +21,7 @@ const AddUser = ({
   const onFinish = async (values: any) => {
     try {
       const res = selectedUser
-        ? await updateUser({ ...values, id: selectedUser.id })
+        ? await updateUser({ ...values, id: selectedUser.user_id })
         : await addUser(values);
       if (res?.status) {
         message.success(res?.message);
@@ -63,10 +63,9 @@ const AddUser = ({
       <Form
         ref={formRef}
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
         style={{ maxWidth: 800 }}
         onFinish={onFinish}
+        layout="vertical"
         autoComplete="off"
       >
         <Form.Item
@@ -84,24 +83,21 @@ const AddUser = ({
           <Input />
         </Form.Item>
         <Form.Item
-          label="Father Number"
+          label="Husband / Father Number"
           name="father_name"
-          rules={[{ required: true, message: "Please enter the father name" }]}
+          rules={[
+            {
+              required: true,
+              message: "Please enter the husband or father name",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          label="Age"
-          name="age"
-          rules={[{ required: true, message: "Please enter the age" }]}
-        >
+        <Form.Item label="Age" name="age">
           <Input type="number" />
         </Form.Item>
-        <Form.Item
-          label="Gender"
-          name="gender"
-          rules={[{ required: true, message: "Please select the gender" }]}
-        >
+        <Form.Item label="Gender" name="gender">
           <Select
             options={[
               { value: "Male", label: "male" },
@@ -110,11 +106,7 @@ const AddUser = ({
             ]}
           />
         </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: "Please enter the email" }]}
-        >
+        <Form.Item label="Email" name="email">
           <Input type="email" />
         </Form.Item>
         <Form.Item
@@ -124,7 +116,11 @@ const AddUser = ({
         >
           <Input />
         </Form.Item>
-        <Form.Item label="Sur Code" name="sur_code">
+        <Form.Item
+          label="Sur Code"
+          name="sur_code"
+          rules={[{ required: true, message: "Please enter the survey code" }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item label="Category" name="category">

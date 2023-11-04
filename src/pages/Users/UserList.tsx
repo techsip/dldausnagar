@@ -36,18 +36,25 @@ const UserList = () => {
       key: "father_name",
     },
     {
-      title: "Age",
-      render: (user: any) => Number(user?.age) || "",
+      title: "Senior Citizen",
+      dataIndex: "senior_citizen",
+      key: "senior_citizen",
+      filters: [
+        { text: "Yes", value: "yes" },
+        { text: "No", value: "no" },
+      ],
+      onFilter: (value: any, record: any) =>
+        record.senior_citizen.includes(value),
     },
     {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: "PWD",
+      dataIndex: "pwd",
+      key: "pwd",
+      filters: [
+        { text: "Yes", value: "yes" },
+        { text: "No", value: "no" },
+      ],
+      onFilter: (value: any, record: any) => record.pwd.includes(value),
     },
     {
       title: "Address",
