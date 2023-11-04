@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button, ConfigProvider, Space } from "antd";
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
@@ -36,38 +37,55 @@ function App() {
     checkAuth();
   }, []);
   return (
-    <main>
-      <div className="main-container">
-        {loggedIn && (
-          <SideMenu setSelectedtool={setSelectedtool} isAdmin={isAdmin} />
-        )}
-        <div className="content-container">
-          {loggedIn && <Header heading={selectedTool} checkAuth={checkAuth} />}
-          <Routes>
+    <ConfigProvider
+      theme={{
+        token: {
+          // Seed Token
+          colorPrimary: "#1b6614",
+        },
+      }}
+    >
+      <main>
+        <div className="main-container">
+          {loggedIn && (
+            <SideMenu setSelectedtool={setSelectedtool} isAdmin={isAdmin} />
+          )}
+          <div className="content-container">
+            <div className="dashboard-bg-img">
+              <div className="dashboard-bg-img-overlay"></div>
+            </div>
             {loggedIn && (
-              <>
-                <Route path="/flats" element={<FlatList isAdmin={isAdmin} />} />
-                <Route path="/users" element={<UserList />} />
-                {isAdmin && <Route path="/admins" element={<AdminList />} />}
-              </>
+              <Header heading={selectedTool} checkAuth={checkAuth} />
             )}
-            <Route
-              path="/"
-              element={
-                loggedIn ? (
-                  <Home />
-                ) : loggedIn === false ? (
-                  <Login checkAuth={checkAuth} />
-                ) : null
-              }
-            >
-              {/* <Route path="contact" element={<Contact />} />
+            <Routes>
+              {loggedIn && (
+                <>
+                  <Route
+                    path="/flats"
+                    element={<FlatList isAdmin={isAdmin} />}
+                  />
+                  <Route path="/users" element={<UserList />} />
+                  {isAdmin && <Route path="/admins" element={<AdminList />} />}
+                </>
+              )}
+              <Route
+                path="/"
+                element={
+                  loggedIn ? (
+                    <Home />
+                  ) : loggedIn === false ? (
+                    <Login checkAuth={checkAuth} />
+                  ) : null
+                }
+              >
+                {/* <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
-            </Route>
-          </Routes>
+              </Route>
+            </Routes>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </ConfigProvider>
   );
 }
 

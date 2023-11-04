@@ -1,0 +1,22 @@
+.dashboard-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 100px);
+}
+.dashboard-title {
+    position: absolute;
+    top: 10px;
+    z-index: 10;
+    color: #1b6614 !important;   
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700 !important;
+   font-size: 50px !important;
+}
+.dashboard-logo {
+    width: 80px;
+}

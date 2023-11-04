@@ -1,8 +1,12 @@
 import React from "react";
 import {
   AppstoreOutlined,
+  ControlOutlined,
+  HomeOutlined,
   MailOutlined,
+  MenuOutlined,
   SettingOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
@@ -32,12 +36,12 @@ interface Props {
 }
 const SideMenu = ({ setSelectedtool, isAdmin }: Props) => {
   let items: MenuProps["items"] = [
-    getItem("Dashboard", ""),
-    getItem("Flats", "flats"),
-    getItem("Users", "users"),
+    getItem("Dashboard", "", <MenuOutlined />),
+    getItem("Flats", "flats", <HomeOutlined />),
+    getItem("Users", "users", <UserOutlined />),
   ];
   if (isAdmin) {
-    items = [...items, getItem("Admins", "admins")];
+    items = [...items, getItem("Admins", "admins", <ControlOutlined />)];
   }
   const navigate = useNavigate();
   const location = useLocation();

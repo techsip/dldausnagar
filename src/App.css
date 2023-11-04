@@ -39,7 +39,36 @@
 
 .main-container {
   display: flex;
+  height: 100vh;
+  overflow: auto;
+}
+.main-container > .ant-menu-root {
+background-color: #97b245;
+}
+.main-container > .ant-menu-root .ant-menu-item-selected, .main-container > .ant-menu-root .ant-menu-item:active {
+  background-color: #1b6614 !important;
+  color: white !important;
 }
 .content-container {
   flex: 1;
+  position: relative;
+}
+.dashboard-bg-img {
+  width: 100%;
+  height: calc(100% - 200px);
+  position: absolute;
+  background: url("http://localhost:3000/assets/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1;
+  top: 180px;
+  
+}
+.ant-table, .ant-table-placeholder {
+  background-color: rgba(255, 255, 255,0.7) !important;
+}
+.ant-btn-primary {
+  /* background: #1b6614 !important; */
+
 }

@@ -1,3 +1,6 @@
+.container {
+  display: flex;
+}
 .login-container{
   width: 400px;
   margin: auto;
@@ -5,6 +8,49 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+}
+.background{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right:0;
+  background-image: url('https://ddausn.org.in/wp-content/uploads/2020/08/pantpark-e1596783670603.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+}
+.form-inputs {
+  padding: 0px 20px;
+}
+.login-form-heading {
+  margin: 0 !important;
+  padding: 20px;
+  color: #1b6614;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.login-form-heading .ant-typography {
+  margin: 0;
+}
+.login-form-button {
+  background-color: #1b6614 !important;
+}
+.form-logo {
+  width: 62px;
 }
 @media only screen and (max-width: 400px) {
   .login-container{

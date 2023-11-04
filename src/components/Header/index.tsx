@@ -16,7 +16,7 @@ const Header = ({ heading, checkAuth }: Props) => {
   };
   return (
     <div className="header">
-      <h2>{heading}</h2>
+      <h2 style={{ textTransform: "uppercase" }}>{heading}</h2>
       <div className="logout" onClick={onLogout}>
         Logout
       </div>

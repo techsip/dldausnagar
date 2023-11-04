@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #97b245 !important;
 }
 .logout {
   cursor: pointer;
