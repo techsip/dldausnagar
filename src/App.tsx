@@ -65,7 +65,10 @@ function App() {
                     path="/flats"
                     element={<FlatList isAdmin={isAdmin} />}
                   />
-                  <Route path="/users" element={<UserList />} />
+                  <Route
+                    path="/users"
+                    element={<UserList isAdmin={isAdmin} />}
+                  />
                   {isAdmin && <Route path="/admins" element={<AdminList />} />}
                   {isAdmin && (
                     <Route path="/mis-report" element={<MisReport />} />

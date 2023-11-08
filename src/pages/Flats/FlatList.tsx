@@ -17,6 +17,7 @@ import {
   getFlats,
   randomFlatAssignment,
   removeAllotmentFlat,
+  truncateFlats,
 } from "../../services/flats";
 import AddFlat from "./AddFlat";
 import {
@@ -28,6 +29,7 @@ import { getUsers } from "../../services/users";
 import { API_HOST } from "../../services/common";
 import apiendpoins from "../../constants/apiendpoins";
 import { getCookie } from "../../utils";
+import { CSVLink } from "react-csv";
 
 interface Props {
   isAdmin: boolean;
@@ -41,6 +43,7 @@ const FlatList = ({ isAdmin }: Props) => {
   const [confirmDeleteLoading, setConfirmDeleteLoading] = useState(false);
   const [assignModal, setAssignModal] = useState(false);
   const [allUsers, setAllUsers] = useState<any>([]);
+  const [truncateFlatConfirm, setTruncateFlatsConfirm] = useState(false);
 
   const onFilter = (inputValue: any, record: any) => {
     const a =
@@ -288,6 +291,21 @@ const FlatList = ({ isAdmin }: Props) => {
     return [...assignedFlats, ...unAssignedFlats];
   };
 
+  const confirmTruncateFlats = async () => {
+    try {
+      const res = await truncateFlats();
+      if (res?.status) {
+        message.success(res?.message);
+        fetchFlats();
+      } else {
+        message.error(res?.message);
+      }
+    } catch (e) {
+      message.error("something went wrong");
+    }
+    setTruncateFlatsConfirm(false);
+  };
+
   return (
     <>
       <div
@@ -299,6 +317,7 @@ const FlatList = ({ isAdmin }: Props) => {
         <div
           style={{
             display: "flex",
+            marginBottom: 10,
           }}
         >
           <Upload {...props}>
@@ -317,6 +336,30 @@ const FlatList = ({ isAdmin }: Props) => {
               Assign Flat to Users
             </Button>
           )}
+          {isAdmin && (
+            <Popconfirm
+              title="Delete the flats"
+              description="Are you sure to delete all the flats?"
+              onConfirm={confirmTruncateFlats}
+              onCancel={() => setTruncateFlatsConfirm(false)}
+              open={truncateFlatConfirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
+                danger
+                onClick={() => setTruncateFlatsConfirm(true)}
+              >
+                Truncate Flats
+              </Button>
+            </Popconfirm>
+          )}
+          <CSVLink style={{ marginLeft: 10 }} data={flats}>
+            <Button type="primary">Export Data</Button>
+          </CSVLink>
+          <div style={{ marginLeft: 10 }}>Total Flats: {flats?.length}</div>
         </div>
         <Table columns={columns} dataSource={sortByUser()} />
       </div>

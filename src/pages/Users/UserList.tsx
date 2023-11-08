@@ -1,7 +1,7 @@
 import { Button, Popconfirm, Table, message, Upload, UploadProps } from "antd";
 import React, { useEffect, useState } from "react";
 import { getFlats } from "../../services/flats";
-import { deleteUser, getUsers } from "../../services/users";
+import { deleteUser, getUsers, truncateUsers } from "../../services/users";
 import AddFlat from "../Flats/AddFlat";
 import AddUser from "./AddUser";
 import {
@@ -12,13 +12,19 @@ import {
 import { API_HOST } from "../../services/common";
 import apiendpoins from "../../constants/apiendpoins";
 import { getCookie } from "../../utils";
+import { CSVLink } from "react-csv";
 
-const UserList = () => {
+interface Props {
+  isAdmin: boolean;
+}
+
+const UserList = ({ isAdmin }: Props) => {
   const [users, setUser] = useState<any>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState();
   const [deleteOpen, setDeleteOpen] = useState();
   const [confirmDeleteLoading, setConfirmDeleteLoading] = useState(false);
+  const [truncateUsersConfirm, setTruncateUsersConfirm] = useState(false);
   const columns = [
     {
       title: "Name",
@@ -154,16 +160,35 @@ const UserList = () => {
       Authorization: `Bearer ${getCookie("token")}`,
     },
     onChange(info) {
+      console.log("infor", info);
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
+      if (info.file.response?.status) {
+        message.success(
+          info.file.response?.message ||
+            `${info.file.name} file uploaded successfully`
+        );
         fetchUsers();
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+      } else if (info.file.response?.message) {
+        message.error(info.file.response?.message);
       }
     },
+  };
+
+  const confirmTruncateUsers = async () => {
+    try {
+      const res = await truncateUsers();
+      if (res?.status) {
+        message.success(res?.message);
+        fetchUsers();
+      } else {
+        message.error(res?.message);
+      }
+    } catch (e) {
+      message.error("something went wrong");
+    }
+    setTruncateUsersConfirm(false);
   };
   return (
     <>
@@ -171,6 +196,7 @@ const UserList = () => {
         <div
           style={{
             display: "flex",
+            marginBottom: 10,
           }}
         >
           <Upload {...props}>
@@ -179,6 +205,30 @@ const UserList = () => {
           <Button type="primary" onClick={showModal} style={{ marginLeft: 10 }}>
             Add User
           </Button>
+          {isAdmin && (
+            <Popconfirm
+              title="Delete the users"
+              description="Are you sure to delete all the users?"
+              onConfirm={confirmTruncateUsers}
+              onCancel={() => setTruncateUsersConfirm(false)}
+              open={truncateUsersConfirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
+                danger
+                onClick={() => setTruncateUsersConfirm(true)}
+              >
+                Truncate Users
+              </Button>
+            </Popconfirm>
+          )}
+          <CSVLink style={{ marginLeft: 10 }} data={users}>
+            <Button type="primary">Export Data</Button>
+          </CSVLink>
+          <div style={{ marginLeft: 10 }}>Total Users: {users?.length}</div>
         </div>
         <Table columns={columns} dataSource={users} />
       </div>

@@ -61,13 +61,31 @@ const SideMenu = ({ setSelectedtool, isAdmin }: Props) => {
   };
 
   return (
-    <Menu
-      onClick={onClick}
-      style={{ width: 240 }}
-      defaultSelectedKeys={[getDefaultSelectedKeys()]}
-      mode="inline"
-      items={items}
-    />
+    <>
+      <h3
+        style={{
+          position: "fixed",
+          width: 239,
+          textAlign: "center",
+          height: 71,
+          borderBottom: "1px solid #1b6614",
+          borderRight: "1px solid #1b6614",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: 0,
+        }}
+      >
+        DLDA US NAGAR
+      </h3>
+      <Menu
+        onClick={onClick}
+        style={{ width: 240, paddingTop: 70 }}
+        defaultSelectedKeys={[getDefaultSelectedKeys()]}
+        mode="inline"
+        items={items}
+      />
+    </>
   );
 };
 

@@ -11,12 +11,15 @@ export default {
   uploadFlats: "/flats/upload-csv.php",
   removeAllotment: "/flats/cancel-allotment.php",
   searchData: "/flats/search-data.php",
+  truncateFlats: "/flats/truncate.php",
+  truncateFlatUserMapping: "/flats/truncate-map.php",
 
   fetchUsers: "/users/get-users.php",
   addUser: "/users/add-user.php",
   updateUser: "/users/update-user.php",
   deleteUser: "/users/delete-user.php",
   uploadUsers: "/users/upload-users.php",
+  truncateUsers: "/users/truncate.php",
 
   fetchAdmins: "/admin/get-admins.php",
   addAdmin: "/admin/add-admin.php",

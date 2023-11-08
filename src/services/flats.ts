@@ -32,3 +32,11 @@ export const assignFlatToUser = (paylod: any) => {
 export const searchData = (data: any) => {
   return apiService(`${apiendpoins.searchData}?${data}`, "GET");
 };
+
+export const truncateFlats = () => {
+  return apiService(`${apiendpoins.truncateFlats}`, "DELETE");
+};
+
+export const truncateFlatUserMapping = () => {
+  return apiService(`${apiendpoins.truncateFlatUserMapping}`, "DELETE");
+};

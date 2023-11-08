@@ -16,3 +16,7 @@ export const updateUser = (payload: any) => {
 export const deleteUser = (id: string) => {
   return apiService(`${apiendpoins.deleteUser}?id=${id}`, "DELETE");
 };
+
+export const truncateUsers = () => {
+  return apiService(`${apiendpoins.truncateUsers}`, "DELETE");
+};
