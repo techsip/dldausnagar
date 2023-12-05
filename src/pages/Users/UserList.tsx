@@ -155,6 +155,7 @@ const UserList = ({ isAdmin }: Props) => {
   const props: UploadProps = {
     showUploadList: false,
     name: "file",
+    accept: ".csv",
     action: `${API_HOST}${apiendpoins.uploadUsers}`,
     headers: {
       Authorization: `Bearer ${getCookie("token")}`,

@@ -266,7 +266,9 @@ const FlatList = ({ isAdmin }: Props) => {
   }, [isModalOpen]);
 
   const props: UploadProps = {
+    showUploadList: false,
     name: "file",
+    accept: ".csv",
     action: `${API_HOST}${apiendpoins.uploadFlats}`,
     headers: {
       Authorization: `Bearer ${getCookie("token")}`,
