@@ -216,7 +216,7 @@ const FlatList = ({ isAdmin }: Props) => {
   };
 
   const showModal = (flat: any) => {
-    if (flat) {
+    if (flat?.flat_id) {
       setSelectedFlat(flat);
     }
     setIsModalOpen(true);

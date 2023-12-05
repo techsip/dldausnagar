@@ -128,7 +128,7 @@ const UserList = ({ isAdmin }: Props) => {
   };
 
   const showModal = (user: any) => {
-    if (user) {
+    if (user?.user_id) {
       setSelectedUser(user);
     }
     setIsModalOpen(true);
