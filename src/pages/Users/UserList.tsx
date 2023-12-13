@@ -206,7 +206,7 @@ const UserList = ({ isAdmin }: Props) => {
           <Button type="primary" onClick={showModal} style={{ marginLeft: 10 }}>
             Add User
           </Button>
-          {isAdmin && (
+          {/* {isAdmin && (
             <Popconfirm
               title="Delete the users"
               description="Are you sure to delete all the users?"
@@ -225,7 +225,7 @@ const UserList = ({ isAdmin }: Props) => {
                 Truncate Users
               </Button>
             </Popconfirm>
-          )}
+          )} */}
           <CSVLink style={{ marginLeft: 10 }} data={users}>
             <Button type="primary">Export Data</Button>
           </CSVLink>

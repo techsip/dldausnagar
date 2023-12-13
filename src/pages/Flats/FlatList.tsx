@@ -338,7 +338,7 @@ const FlatList = ({ isAdmin }: Props) => {
               Assign Flat to Users
             </Button>
           )}
-          {isAdmin && (
+          {/* {isAdmin && (
             <Popconfirm
               title="Delete the flats"
               description="Are you sure to delete all the flats?"
@@ -357,7 +357,7 @@ const FlatList = ({ isAdmin }: Props) => {
                 Truncate Flats
               </Button>
             </Popconfirm>
-          )}
+          )} */}
           <CSVLink style={{ marginLeft: 10 }} data={flats}>
             <Button type="primary">Export Data</Button>
           </CSVLink>
